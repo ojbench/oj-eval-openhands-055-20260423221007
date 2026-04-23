@@ -25,6 +25,10 @@ struct date {
         return is;
     }
 
+    bool operator==(const date& other) const {
+        return year == other.year && month == other.month && day == other.day;
+    }
+
     int to_days() const {
         return year * 360 + month * 30 + day;
     }
@@ -130,6 +134,9 @@ public:
         date query_date(y, m, d);
         if (query_date < send_date) return "mail not send";
         for (int i = 0; i < len; ++i) {
+            if (query_date == station_time[i]) {
+                return "train arrive at " + station_name[i];
+            }
             if (query_date < station_time[i]) {
                 if (i == 0) return "train will arrive at " + station_name[0];
                 return "train is between " + station_name[i - 1] + " and " + station_name[i];
